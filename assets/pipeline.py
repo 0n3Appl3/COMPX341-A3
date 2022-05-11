@@ -1,3 +1,4 @@
+import sys
 import subprocess
 
 commands = [
@@ -5,7 +6,7 @@ commands = [
     ["npm", "run", "build"],
     ["npm", "run", "start"],
     ["git", "add", "--all"],
-    ["git", "commit", "-m", "COMPX341-22A-A3 Committing from CI/CD Pipeline"],
+    ["git", "commit", "-m", "[commit message here]"],
     ["git", "push", "-u", "origin", "main"]
 ]
 
@@ -34,4 +35,23 @@ def main():
     subprocess.run(commands[2])
 
 if __name__ == "__main__":
-    main()
+    # Get length of number of arguments in the command.
+    arguments_length = len(sys.argv)
+
+    if arguments_length == 2:
+        # Set custom commit message.
+        commands[4][3] = sys.argv[1]
+        # Begin script.
+        main()
+    elif arguments_length > 2:
+        # User has entered too many arguments in the command.
+        print("\n####################################################\n" + 
+              "There are too many arguments!\n" +
+              "USAGE: python3 pipeline.py \"<commit message>\"\n" +
+              "####################################################\n")
+    else:
+        # User has not entered a commit message.
+        print("\n####################################################\n" + 
+              "You need to enter a commit message!\n" +
+              "USAGE: python3 pipeline.py \"<commit message>\"\n" +
+              "####################################################\n")
