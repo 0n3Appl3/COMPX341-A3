@@ -1,3 +1,4 @@
+/* Jedd Lupoy (1536884) */
 //
 export const categories = {
   cooks: "Cookbooks",
